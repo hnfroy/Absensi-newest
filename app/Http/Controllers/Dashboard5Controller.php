@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\presensi;
+use Illuminate\Support\Facades\Auth;
 
 class Dashboard5Controller extends Controller
 {
@@ -15,6 +16,7 @@ class Dashboard5Controller extends Controller
     public function index()
     {
         $presensi = presensi::latest()->paginate(5);
+        $presensi = presensi::where('user_id', Auth::user()->id)->get();
     
         return view('dashboard5.index',compact('presensi'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
