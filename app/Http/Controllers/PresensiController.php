@@ -6,7 +6,6 @@ use DateTime;
 use DateTimeZone;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PresensiController extends Controller
 {
@@ -23,7 +22,6 @@ class PresensiController extends Controller
     public function keluar()
     {
         $presensi = presensi::latest()->paginate(5);
-        $presensi = presensi::where('user_id', Auth::user()->id)->get();
     
         return view('presensi.keluar',compact('presensi'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
